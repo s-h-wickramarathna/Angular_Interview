@@ -8,37 +8,11 @@
     <h2>My Task Management Application</h2>
   </div>
 
-  <!-- Add Tasks According -->
-  <div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-          aria-expanded="false" aria-controls="collapseTwo">
-          Click To Add New Tasks
-        </button>
-      </h2>
-      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          <!-- Tilte -->
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Title</label>
-            <input type="email" class="form-control" id="Title" placeholder="Task Name">
-          </div>
-          <!-- Tilte -->
-          <!-- Description -->
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="Description" rows="3"></textarea>
-          </div>
-          <!-- Description -->
-           <div class="col-12 mt-3 mb-3">
-            <td><button type="button" class="btn btn-primary">Save</button></td>
-           </div>
-        </div>
-      </div>
-    </div>
+  <div class="col-12 text-end">
+    <a class="btn btn-success" [routerLink]="['/add']">Add New Task</a>
   </div>
-  <!-- Add Tasks According -->
+
+  <!-- Tasks List -->
    <div class="col-12 mt-5 mb-5">
     <h3>All Tasks</h3>
    </div>

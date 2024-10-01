@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { Modal } from 'bootstrap';
 import { HomeComponent } from './component/home/home.component';
 import { UpdateTaskComponent } from './component/update-task/update-task.component';
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     RouterOutlet,
+    RouterModule,
     HomeComponent,
     UpdateTaskComponent
   ],
