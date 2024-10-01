@@ -1,0 +1,47 @@
+<Section>
+    <div class="col-12">
+        <div class="col-12 mt-5 mb-5">
+            <h2>Update Existing Task</h2>
+        </div>
+        
+        <!-- Form start -->
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <!-- Title -->
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Task Name" formControlName="title">
+            <div *ngIf="title?.touched && title?.invalid" class="text-danger">
+              <div *ngIf="title?.errors?.['required']">Title is required.</div>
+            </div>
+          </div>
+          <!-- Title -->
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="3" placeholder="Task Description" formControlName="description"></textarea>
+            <div *ngIf="description?.touched && description?.invalid" class="text-danger">
+              <div *ngIf="description?.errors?.['required']">Description is required.</div>
+            </div>
+          </div>
+          <!-- Description -->
+
+          <!-- Status -->
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" id="status" aria-label="Default select example" formControlName="status">
+              <option value="1">Complete</option>
+              <option value="2">Incomplete</option>
+            </select>
+          </div>
+          <!-- Status -->
+
+          <!-- Buttons -->
+          <div class="col-12 mt-3 mb-3 text-end">
+            <button type="submit" class="btn btn-primary mt-3 me-2" [disabled]="myForm.invalid">Save</button>
+            <button type="button" class="btn btn-dark mt-3" (click)="onCancel()">Cancel</button>
+          </div>
+        </form>
+        <!-- Form end -->
+      </div>
+</Section>
