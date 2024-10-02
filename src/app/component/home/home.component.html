@@ -4,9 +4,9 @@
 
 <main class="container-fluid">
 
-  <div class="col-12 mt-5 mb-5">
-    <h2>My Task Management Application</h2>
-  </div>
+  <!-- Navbar -->
+  <app-navbar></app-navbar>
+  <!-- Navbar -->
 
   <div class="col-12 text-end">
     <a class="btn btn-success" [routerLink]="['/add']">Add New Task</a>
@@ -30,30 +30,15 @@
         </tr>
       </thead>
       <tbody class="table-group-divider">
-        <tr>
+        <tr *ngFor="let task of allTasks">
           <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>mdo</td>
-          <td><button type="button" class="btn btn-primary">Edit</button></td>
-          <td><button type="button" class="btn btn-danger">Delete</button></td>
+          <td>{{task.title}}</td>
+          <td>{{task.description}}</td>
+          <td>{{task.status == "1" ? "Complete" : "Incomplete"}}</td>
+          <td><button type="button" class="btn btn-primary"  [routerLink]="['/update',task.id]">Edit</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="onDelete(task.id)">Delete</button></td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>fat</td>
-          <td><button type="button" class="btn btn-primary">Edit</button></td>
-          <td><button type="button" class="btn btn-danger">Delete</button></td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry the Bird</td>
-          <td>twitter</td>
-          <td>twitter</td>
-          <td><button type="button" class="btn btn-primary">Edit</button></td>
-          <td><button type="button" class="btn btn-danger">Delete</button></td>
-        </tr>
+        
       </tbody>
     </table>
   </div>

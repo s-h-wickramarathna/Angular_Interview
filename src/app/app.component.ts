@@ -5,6 +5,7 @@ import { Modal } from 'bootstrap';
 import { HomeComponent } from './component/home/home.component';
 import { UpdateTaskComponent } from './component/update-task/update-task.component';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from "./component/login/login.component";
 
 
 @Component({
@@ -15,8 +16,9 @@ import { CommonModule } from '@angular/common';
     RouterOutlet,
     RouterModule,
     HomeComponent,
-    UpdateTaskComponent
-  ],
+    UpdateTaskComponent,
+    LoginComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

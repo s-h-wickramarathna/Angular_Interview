@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddTasksComponentService } from './add-tasks.service';
 import { Router } from '@angular/router';
@@ -15,10 +15,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-tasks.component.css'] // Fixed the typo here
 })
 
-export class AddTasksComponent {
+export class AddTasksComponent implements OnInit {
   myForm: FormGroup;
+  token: any ="";
 
-  constructor(private fb: FormBuilder, private location: Location, private addTasksService: AddTasksComponentService) {
+  constructor(private fb: FormBuilder, private router: Router, private location: Location, private addTasksService: AddTasksComponentService) {
     // Initialize the form group here
     this.myForm = this.fb.group({
       title: ['', Validators.required],
@@ -26,21 +27,46 @@ export class AddTasksComponent {
       status: ['2', [Validators.required]],
     });
   }
+  ngOnInit(): void {
+    this.token = sessionStorage.getItem('access_token');
+    if (this.token === "" || this.token === null) {
+      this.router.navigate(['/unauthorized']);
+    }else{
+      console.log(this.token);
+    }
+  }
 
   onSubmit() {
     if (this.myForm.valid) {
-      const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJwYXNhbjEyMyIsImlhdCI6MTcyNzgwMTA4OCwiZXhwIjoxNzI3ODg3NDg4fQ.qhraMuv4PQj5KZan6JxQay5wOBFf_tAtZSEAcEjzbJLAnAAgo8sLjNXA1P-LTv1r"; // Retrieve the token from local storage
-
       // Call the service method to send form data with the Bearer token, and subscribe to the result
-      this.addTasksService.createTask(this.myForm.value, token!).subscribe({
+      this.addTasksService.createTask(this.myForm.value, this.token).subscribe({
         next: (response) => {
           if ((response.status === 200 || response.status === 201) && response.data === 2) {
             // Redirect to the previous page
             this.location.back(); // Replace with your actual route
+
+          } else if ((response.status === 200 || response.status === 201) && response.data === 1) {
+            alert("Task Already Created");
+            this.onCancel();
+
+          } else if ((response.status === 200 || response.status === 201) && response.data === 3) {
+            console.log(response);
+
+          }else{
+            console.log(response);
           }
+
         },
         error: (error) => {
           console.error('Error submitting form:', error);
+          if (error.response?.status === 500) {
+            console.log(error);
+
+          } else if (error.response?.status === 401) {
+            this.router.navigate(['/unauthorized']);
+          } else {
+            alert("An error occurred during login. Please try again later.");
+          }
         }
       });
     } else {
